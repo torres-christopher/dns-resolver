@@ -1,1 +1,1 @@
-# email-accessories
+# DNS resolver
