@@ -32,8 +32,24 @@ app.use((req, res, next) => {
   next();
 });
 
-// Routes
+// API Routes
 app.use('/api/v1/dns', dnsRouter);
+
+// Internal routes
+app.get('/internal/dns', async (req, res) => {
+  try {
+    const { domain, type } = req.query;
+
+    if (!domain || !type) {
+      return res.status(400).json({ error: 'Domain and type are required' });
+    }
+
+    const result = await dnsService.performDNSLookup(domain, type);
+    res.json(result);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
 
 // Export to server
 module.exports = app;
