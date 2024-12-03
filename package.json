@@ -9,7 +9,7 @@
     "debug": "ndb server.js"
   },
   "keywords": [],
-  "author": "Jonas Schmedtmann",
+  "author": "Christopher Torres",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
