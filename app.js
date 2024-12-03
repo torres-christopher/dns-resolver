@@ -6,10 +6,16 @@ const morgan = require('morgan');
 
 // Route startup
 const dnsRouter = require('./routes/dnsRoutes');
+const internalRouter = require('./routes/internalRoutes');
+const viewRouter = require('./routes/viewRoutes');
 
 // Start express app
 const app = express();
 app.enable('trust proxy');
+
+// View engine
+app.set('view engine', 'pug');
+app.set('views', path.join(__dirname, 'views'));
 
 // Middleware
 app.use(cors());
@@ -32,24 +38,10 @@ app.use((req, res, next) => {
   next();
 });
 
-// API Routes
+// Routes
+app.use('/', viewRouter);
 app.use('/api/v1/dns', dnsRouter);
-
-// Internal routes
-app.get('/internal/dns', async (req, res) => {
-  try {
-    const { domain, type } = req.query;
-
-    if (!domain || !type) {
-      return res.status(400).json({ error: 'Domain and type are required' });
-    }
-
-    const result = await dnsService.performDNSLookup(domain, type);
-    res.json(result);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-});
+app.use('/internal/dns', internalRouter);
 
 // Export to server
 module.exports = app;

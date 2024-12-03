@@ -59,7 +59,6 @@ const performDNSLookup = async (domain, type, options = null) => {
         domain = domain.concat('.in-addr.arpa');
         const ptrResult = await dnsPromises.resolvePtr(domain);
         if (ptrResult && ptrResult.length > 0) {
-          console.log(ptrResult);
           domain = ptrResult[0]; // Replace the domain with the PTR record's result
         } else {
           throw new Error('Domain must be an IP address for PTR lookup');
@@ -69,6 +68,8 @@ const performDNSLookup = async (domain, type, options = null) => {
           'Failed to resolve PTR record for the given IP address',
         );
       }
+    } else if (isIPAddress(domain) && type.toUpperCase() == 'PTR') {
+      domain = domain.concat('.in-addr.arpa');
     }
 
     // Options check for A and AAAA
