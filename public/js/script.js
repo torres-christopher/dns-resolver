@@ -39,6 +39,7 @@ document.getElementById('dnsForm').addEventListener('submit', async (e) => {
 
     // Populate table with results
     Object.entries(result).forEach(([key, value]) => {
+      console.log(key, typeof value);
       const row = document.createElement('tr');
 
       // Key column
@@ -50,7 +51,9 @@ document.getElementById('dnsForm').addEventListener('submit', async (e) => {
 
       // Value column
       const valueCell = document.createElement('td');
-      valueCell.textContent = Array.isArray(value) ? value.join(', ') : value;
+      valueCell.textContent = Array.isArray(value)
+        ? value.join(', ')
+        : JSON.stringify(value);
       valueCell.style.border = '1px solid #ddd';
       valueCell.style.padding = '8px';
       row.appendChild(valueCell);
