@@ -1,0 +1,8 @@
+extends base
+
+block content
+    h1 Error
+    span(style="color: red") #{title || 'Something went wrong!'}
+    p #{message || 'An unexpected error occurred. Please try again later.'}
+    p
+        a(href="/") Go back to the home page

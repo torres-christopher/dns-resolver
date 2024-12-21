@@ -45,7 +45,7 @@
   form select {
     width: 100%;
     padding: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     border: 1px solid #ccc;
     border-radius: 4px;
   }
@@ -66,7 +66,11 @@
   form button:hover {
     background: #003d80;
   }
-  
+
+  .type {
+    margin-top: 8px;
+  }  
+
   /* Result Styling */
   #result {
     margin-top: 20px;
@@ -80,4 +84,39 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     display: none;
   }
+
+/* Table Styling */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.table th, .table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.table th {
+  background-color: #f2f2f2;
+  text-align: left;
+  font-weight: bold;
+}
+
+.table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.table tr:hover {
+  background-color: #f1f1f1;
+}
+
+.table td {
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+.table td ul {
+  list-style: none;
+}
   

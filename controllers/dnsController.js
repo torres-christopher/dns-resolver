@@ -2,6 +2,24 @@
 const dnsPromises = require('dns').promises;
 const { performDNSLookup } = require('../services/dnsService');
 
+const segmentAnyData = function (data) {
+  const segmentedData = {};
+
+  data.forEach((item) => {
+    const { type, ...rest } = item; // Destructure to remove "type"
+
+    // If the type doesn't exist in the segmentedData, initialize it as an array
+    if (!segmentedData[type]) {
+      segmentedData[type] = [];
+    }
+
+    // Add the item (without "type") to the corresponding type array
+    segmentedData[type].push(rest);
+  });
+
+  return segmentedData;
+};
+
 // DNS by types
 exports.lookupDNSType = async (req, res) => {
   try {
@@ -43,7 +61,8 @@ exports.lookupTest = async (req, res) => {
 
     let result;
     // Get value
-    await dnsPromises.resolveAny('tutorialspoint.com').then((response) => {
+    await dnsPromises.resolveAny('email.rixo.cz').then((response) => {
+      console.log(response);
       result = response;
     });
 

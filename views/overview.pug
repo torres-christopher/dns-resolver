@@ -1,15 +1,19 @@
 extends base
 
+block append head
+    script(defer src="/js/script.js")
+
 block content
     h1 DNS Lookup Tool
     form#dnsForm
-        label(for="domain") Domain:
+        label.domain(for="domain") Domain:
         input#domain(type="text" name="domain" required)
-        label(for="type") Type:
+        button(type="submit-type" value="lookup") Lookup
+        label.type(for="type") Type:
         select#type(name="type" required)
-            option(value="A") A
+            option(value="A" selected) A
             option(value="AAAA") AAAA
-            option(value="ANY" selected) ANY
+            option(value="ANY") ANY
             option(value="CAA") CAA
             option(value="CNAME") CNAME
             option(value="MX") MX
@@ -19,5 +23,5 @@ block content
             option(value="SOA") SOA
             option(value="SRV") SRV
             option(value="TXT") TXT
-        button(type="submit") Lookup
+        button(type="submit" value="quick-search") Quick search
     div#result

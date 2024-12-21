@@ -42,11 +42,33 @@ const getDNSRecord = async (domain, resolver, options = null) => {
   }
 };
 
+// Segment data by type for ANY
+const segmentANYData = function (data) {
+  const segmentedData = {};
+
+  data.forEach((item) => {
+    const { type, ...rest } = item; // Destructure to remove "type"
+
+    // If the type doesn't exist in the segmentedData, initialize it as an array
+    if (!segmentedData[type]) {
+      segmentedData[type] = [];
+    }
+
+    // Add the item (without "type") to the corresponding type array
+    segmentedData[type].push(rest);
+  });
+
+  return segmentedData;
+};
+
 // DNS by types
 const performDNSLookup = async (domain, type, options = null) => {
   try {
+    // Uppercase type for lookup
+    type = type.toUpperCase();
+
     // Domain check for PTR
-    if (type.toUpperCase() == 'PTR' && !isIPAddress(domain)) {
+    if (type == 'PTR' && !isIPAddress(domain)) {
       return res.status(400).json({
         status: 'fail',
         message: 'Domain must be an IP address for this operation',
@@ -68,12 +90,12 @@ const performDNSLookup = async (domain, type, options = null) => {
           'Failed to resolve PTR record for the given IP address',
         );
       }
-    } else if (isIPAddress(domain) && type.toUpperCase() == 'PTR') {
+    } else if (isIPAddress(domain) && type == 'PTR') {
       domain = domain.concat('.in-addr.arpa');
     }
 
     // Options check for A and AAAA
-    if (type.toUpperCase() == 'A' || type.toUpperCase() == 'AAAA') {
+    if (type == 'A' || type == 'AAAA') {
       // IPv4 and IPv6 options
       options = {
         ttl: true,
@@ -81,13 +103,16 @@ const performDNSLookup = async (domain, type, options = null) => {
     }
 
     // Check if the type is supported
-    const resolver = await dnsResolvers[type.toUpperCase()];
+    const resolver = await dnsResolvers[type];
     if (!resolver) {
       throw new Error(`Unsupported DNS type: ${type}`);
     }
 
     // Get the DNS record
     result = await getDNSRecord(domain, resolver, options);
+
+    // If the type is "ANY", segment the result
+    if (type === 'ANY') result = segmentANYData(result);
 
     // Success response
     return result;

@@ -1,0 +1,27 @@
+extends base
+
+block content
+    div#table
+        h1 DNS Lookup: #{domain}
+        table.table
+            thead
+                tr
+                    th Type
+                    th Value
+            tbody
+                each value, key in result
+                    tr
+                        td #{key}
+                        td
+                            if Array.isArray(value)
+                                ul
+                                    each item in value
+                                        li
+                                            if typeof item === 'object'
+                                                ul
+                                                    each objValue, objKey in item
+                                                        li #{objKey}: #{Array.isArray(objValue) ? objValue.join(', ') : objValue}
+                                            else
+                                                | #{item}
+                            else
+                                | #{value}
