@@ -1,24 +1,20 @@
 // Dependencies
 const dnsPromises = require('dns').promises;
-const { performDNSLookup } = require('../services/dnsService');
+const { performDNSLookup, isIPAddress } = require('../services/dnsService');
 
-const segmentAnyData = function (data) {
-  const segmentedData = {};
-
-  data.forEach((item) => {
-    const { type, ...rest } = item; // Destructure to remove "type"
-
-    // If the type doesn't exist in the segmentedData, initialize it as an array
-    if (!segmentedData[type]) {
-      segmentedData[type] = [];
-    }
-
-    // Add the item (without "type") to the corresponding type array
-    segmentedData[type].push(rest);
-  });
-
-  return segmentedData;
-};
+const dnsTypesGlobal = [
+  'A',
+  'AAAA',
+  'CAA',
+  'CNAME',
+  'MX',
+  'NAPTR',
+  'NS',
+  'PTR',
+  'SOA',
+  'SRV',
+  'TXT',
+];
 
 // DNS by types
 exports.lookupDNSType = async (req, res) => {
@@ -36,6 +32,51 @@ exports.lookupDNSType = async (req, res) => {
     return res.status(200).json({
       status: 'success',
       data: { domain, type, result },
+    });
+  } catch (error) {
+    return res.status(500).json({
+      status: 'fail',
+      message: error.message,
+    });
+  }
+};
+
+// Lookup all types
+exports.lookupAllDNS = async (req, res) => {
+  try {
+    const { domain } = req.body;
+
+    if (!domain) {
+      return res.status(400).json({
+        status: 'fail',
+        message: 'Domain is required',
+      });
+    }
+
+    // Check for IP address and filterS PTR
+    let dnsTypes = [];
+    if (!isIPAddress(domain)) {
+      dnsTypes = dnsTypesGlobal.filter((e) => e !== 'PTR');
+    } else {
+      dnsTypes = dnsTypesGlobal;
+    }
+
+    const result = {};
+
+    // Perform DNS lookup for all types in parallel
+    await Promise.all(
+      dnsTypes.map(async (type) => {
+        try {
+          result[type] = await performDNSLookup(domain, type);
+        } catch (error) {
+          result[type] = { error: error.message }; // Capture errors for specific types
+        }
+      }),
+    );
+
+    return res.status(200).json({
+      status: 'success',
+      data: { domain, result },
     });
   } catch (error) {
     return res.status(500).json({

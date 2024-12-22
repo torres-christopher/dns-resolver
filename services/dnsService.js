@@ -38,27 +38,8 @@ const getDNSRecord = async (domain, resolver, options = null) => {
       : await resolver(domain);
     return result;
   } catch (error) {
-    return { error: error.message };
+    return { error: { code: error.code, message: error.message } };
   }
-};
-
-// Segment data by type for ANY
-const segmentANYData = function (data) {
-  const segmentedData = {};
-
-  data.forEach((item) => {
-    const { type, ...rest } = item; // Destructure to remove "type"
-
-    // If the type doesn't exist in the segmentedData, initialize it as an array
-    if (!segmentedData[type]) {
-      segmentedData[type] = [];
-    }
-
-    // Add the item (without "type") to the corresponding type array
-    segmentedData[type].push(rest);
-  });
-
-  return segmentedData;
 };
 
 // DNS by types
@@ -110,9 +91,6 @@ const performDNSLookup = async (domain, type, options = null) => {
 
     // Get the DNS record
     result = await getDNSRecord(domain, resolver, options);
-
-    // If the type is "ANY", segment the result
-    if (type === 'ANY') result = segmentANYData(result);
 
     // Success response
     return result;

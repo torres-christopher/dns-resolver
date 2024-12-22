@@ -8,5 +8,6 @@ const router = express.Router();
 // DNS lookup route
 router.route('/lookupTest').post(dnsController.lookupTest);
 router.route('/lookupType').post(dnsController.lookupDNSType);
+router.route('/lookupAll').post(dnsController.lookupAllDNS);
 
 module.exports = router;
