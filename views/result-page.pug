@@ -10,18 +10,26 @@ block content
                     th Value
             tbody
                 each value, key in result
-                    tr
-                        td #{key}
-                        td
-                            if Array.isArray(value)
-                                ul
-                                    each item in value
-                                        li
-                                            if typeof item === 'object'
-                                                ul
-                                                    each objValue, objKey in item
-                                                        li #{objKey}: #{Array.isArray(objValue) ? objValue.join(', ') : objValue}
-                                            else
-                                                | #{item}
-                            else
-                                | #{value}
+                    if !value.error
+                        tr
+                            td #{key}
+                            td
+                                if Array.isArray(value)
+                                    ul
+                                        each item in value
+                                            li
+                                                if Array.isArray(item)
+                                                    each subItem in item
+                                                        li #{subItem}
+                                                else if typeof item === 'object'
+                                                    ul
+                                                        each objValue, objKey in item
+                                                            li #{objKey}: #{Array.isArray(objValue) ? objValue.join(', ') : objValue}
+                                                else
+                                                    | #{item}
+                                else if typeof value === 'object'
+                                    ul
+                                        each objValue, objKey in value
+                                            li #{objKey}: #{Array.isArray(objValue) ? objValue.join(', ') : objValue}
+                                else
+                                    | #{value}
