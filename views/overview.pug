@@ -4,23 +4,24 @@ block append head
     script(defer src="/js/script.js")
 
 block content
-    h1 DNS Lookup Tool
-    form#dnsForm
-        label.domain(for="domain") Domain:
-        input#domain(type="text" name="domain" required)
-        button(type="submit-type" value="lookup") Lookup
-        label.type(for="type") Type:
-        select#type(name="type" required)
-            option(value="A" selected) A
-            option(value="AAAA") AAAA
-            option(value="CAA") CAA
-            option(value="CNAME") CNAME
-            option(value="MX") MX
-            option(value="NAPTR") NAPTR
-            option(value="NS") NS
-            option(value="PTR") PTR
-            option(value="SOA") SOA
-            option(value="SRV") SRV
-            option(value="TXT") TXT
-        button(type="submit" value="quick-search") Quick search
-    div#result
+    main.main
+        h1 DNS Lookup Tool
+        form#dnsForm
+            label.domain(for="domain") Domain:
+            input#domain(type="text" name="domain" required)
+            button(type="submit-type" value="lookup") Lookup
+            label.type(for="type") Type:
+            select#type(name="type" required)
+                option(value="A" selected) A
+                option(value="AAAA") AAAA
+                option(value="CAA") CAA
+                option(value="CNAME") CNAME
+                option(value="MX") MX
+                option(value="NAPTR") NAPTR
+                option(value="NS") NS
+                option(value="PTR") PTR
+                option(value="SOA") SOA
+                option(value="SRV") SRV
+                option(value="TXT") TXT
+            button(type="submit" value="quick-search") Quick search
+        div#result

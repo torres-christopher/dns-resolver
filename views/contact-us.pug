@@ -1,0 +1,23 @@
+extends base
+
+block content
+    main.main
+        section
+            h1 Contact Us
+            p
+                | Have any questions or feedback? We'd love to hear from you! Please fill out the form below and we'll get back to you as soon as possible.
+            if success
+                div.alert.alert-success
+                    | #{message}
+            else if error
+                div.alert.alert-error
+                    | #{error}
+            
+            form#contactForm(action="/contact/submit" method="POST")
+                label(for="name") Name:
+                input(type="text" name="name" placeholder="Your Name" required)
+                label(for="email") Email:
+                input(type="email" name="email" placeholder="Your Email" required)
+                label(for="message") Message:
+                textarea(name="message" rows="5" placeholder="Your Message" required)
+                button(type="submit") Send Message

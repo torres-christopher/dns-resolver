@@ -1,35 +1,154 @@
 extends base
 
-block content
-    div#table
-        h1 DNS Lookup: #{domain}
-        table.table
-            thead
-                tr
-                    th Type
-                    th Value
-            tbody
-                each value, key in result
-                    if !value.error
+block content    
+    main.main
+        div#table
+            h1 DNS Lookup: #{domain}
+            table.table
+                thead
+                    tr
+                        th Type
+                        th Value
+                tbody
+                    //- A
+                    if !result.A.error
                         tr
-                            td #{key}
+                            td A
                             td
-                                if Array.isArray(value)
-                                    ul
-                                        each item in value
-                                            li
-                                                if Array.isArray(item)
-                                                    each subItem in item
-                                                        li #{subItem}
-                                                else if typeof item === 'object'
-                                                    ul
-                                                        each objValue, objKey in item
-                                                            li #{objKey}: #{Array.isArray(objValue) ? objValue.join(', ') : objValue}
-                                                else
-                                                    | #{item}
-                                else if typeof value === 'object'
-                                    ul
-                                        each objValue, objKey in value
-                                            li #{objKey}: #{Array.isArray(objValue) ? objValue.join(', ') : objValue}
-                                else
-                                    | #{value}
+                                ul.result
+                                    each item, index in result.A
+                                        if item.address
+                                            li Address: #{item.address}
+                                        if item.ttl
+                                            li TTL: #{item.ttl}
+                                        if index < result.A.length - 1
+                                            hr
+                    //- AAAA
+                    if !result.AAAA.error
+                        tr
+                            td AAAA
+                            td
+                                ul.result
+                                    each item, index in result.AAAA
+                                        if item.address
+                                            li Address: #{item.address}
+                                        if item.ttl
+                                            li TTL: #{item.ttl}
+                                        if index < result.AAAA.length - 1
+                                            hr
+                    //- CNAME
+                    if !result.CNAME.error
+                        tr
+                            td CNAME
+                            td
+                                ul.result
+                                    each item, index in result.CNAME
+                                        if item.value
+                                            li Name #{index + 1}: #{item}
+                                        if index < result.CNAME.length - 1
+                                            hr
+                    //- CAA
+                    if !result.CAA.error
+                        tr
+                            td CAA
+                            td
+                                ul.result
+                                    each item, index in result.CAA
+                                        if item.critical
+                                            li Critical: #{item.critical}
+                                        if item.issue
+                                            li Issue: #{item.issue}
+                                        if index < result.CAA.length - 1
+                                            hr
+                    //- MX
+                    if !result.MX.error
+                        - const sortedMX = result.MX.sort((a, b) => a.priority - b.priority) //- Sort by priority
+                        tr
+                            td MX
+                            td
+                                ul.result
+                                    each item, index in sortedMX
+                                        if item.exchange
+                                            li Exchange: #{item.exchange}
+                                        if item.priority
+                                            li Priority: #{item.priority}
+                                        if index < sortedMX.length - 1
+                                            hr
+                    //- NAPTR
+                    if !result.NAPTR.error
+                        - const sortedNAPTR = result.NAPTR.sort((a, b) => a.order - b.order) //- Sort by priority
+                        tr
+                            td NAPTR
+                            td
+                                ul.result
+                                    each item, index in sortedNAPTR
+                                        if item.flags
+                                            li Flags: #{item.flags}
+                                        if item.service
+                                            li Service: #{item.service}
+                                        if item.regexp
+                                            li Regexp: #{item.regexp}
+                                        if item.order
+                                            li Order: #{item.order}
+                                        if item.flags
+                                            li Preference: #{item.preference}
+                                        if index < sortedNAPTR.length - 1
+                                            hr
+                    //- NS
+                    if !result.NS.error
+                        tr
+                            td NS
+                            td
+                                ul.result
+                                    each item, index in result.NS
+                                        li Name #{index + 1}: #{item}
+                                        if index < result.NS.length - 1
+                                            hr
+                    //- SOA
+                    if !result.SOA.error
+                        tr
+                            td SOA
+                            td
+                                ul.result
+                                    if result.SOA.nsname
+                                        li NSname: #{result.SOA.nsname}
+                                    if result.SOA.hostmaster
+                                        li Hostmaster: #{result.SOA.hostmaster}
+                                    if result.SOA.serial
+                                        li Serial: #{result.SOA.serial}
+                                    if result.SOA.refresh
+                                        li Refresh: #{result.SOA.refresh}
+                                    if result.SOA.retry
+                                        li Retry: #{result.SOA.retry}
+                                    if result.SOA.expire
+                                        li Expire: #{result.SOA.expire}
+                                    if result.SOA.minttl
+                                        li Minttl: #{result.SOA.minttl}
+                    //- SRV
+                    if !result.SRV.error
+                        - const sortedSRV = result.SRV.sort((a, b) => a.priority - b.priority) //- Sort by priority
+                        tr
+                            td SRV
+                            td
+                                ul.result
+                                    each item, index in sortedSRV
+                                        if item.name
+                                            li Name: #{item.name}
+                                        if item.weight
+                                            li Weight: #{item.weight}
+                                        if item.port
+                                            li Port: #{item.port}
+                                        if item.priority
+                                            li Priority: #{item.priority}
+                                        if index < sortedSRV.length - 1
+                                            hr
+                    //- TXT
+                    if !result.TXT.error
+                        tr
+                            td TXT
+                            td
+                                ul.result
+                                    each item, index in result.TXT
+                                        li Entry: #{item}
+                                        if index < result.TXT.length - 1
+                                            hr

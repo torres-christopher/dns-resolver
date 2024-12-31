@@ -8,6 +8,7 @@ const morgan = require('morgan');
 const dnsRouter = require('./routes/dnsRoutes');
 const internalRouter = require('./routes/internalRoutes');
 const viewRouter = require('./routes/viewRoutes');
+const contactRoutes = require('./routes/contactRoutes');
 
 // Start express app
 const app = express();
@@ -31,6 +32,7 @@ if (process.env.NODE_ENV === 'development') {
 
 // Body parser
 app.use(express.json({ limit: '10kb' }));
+app.use(express.urlencoded({ extended: true })); // For form submissions
 
 // Test middleware
 app.use((req, res, next) => {
@@ -42,6 +44,13 @@ app.use((req, res, next) => {
 app.use('/', viewRouter);
 app.use('/api/v1/dns', dnsRouter);
 app.use('/internal/dns', internalRouter);
+app.use('/contact', contactRoutes);
 
+// After all your other routes
+app.use((req, res, next) => {
+  res.status(404).render('error', {
+    title: '404 - Page Not Found',
+  });
+});
 // Export to server
 module.exports = app;

@@ -33,21 +33,32 @@ This is a **DNS Lookup Tool** built using **Node.js** and **Express.js**. It all
 ├── services
 │   └── dnsService.js    # Core DNS lookup logic
 ├── controllers
-│   ├── dnsController.js # Handles DNS-related API requests
+│   ├── dnsController.js      # Handles DNS-related API requests
 │   ├── internalController.js # Handles frontend DNS requests
 │   ├── viewsController.js    # Serves frontend views
+│   ├── contactController.js  # Handles email sending for contact us form
 ├── routes
-│   ├── dnsRoutes.js     # Routes for DNS API
+│   ├── dnsRoutes.js      # Routes for DNS API
 │   ├── internalRoutes.js # Routes for frontend DNS usage
 │   └── viewRoutes.js     # Routes for serving views
+│   └── contactRouts.js   # Routes for sending contact form
 ├── views
+│   ├── _header.pug      # Header template
+│   ├── _footer.pug      # Footer template
 │   ├── base.pug         # Base layout for Pug templates
 │   ├── overview.pug     # Main DNS Lookup page
+│   ├── result-page.pug  # Result page for complete lookup
+│   ├── about.pug        # About us page
+│   ├── contact-us.pug   # Contact us page
+│   ├── privacy.pug      # Privacy policy
+│   ├── terms.pug        # Terms of service
+│   ├── error.pug        # Error page if 404
 ├── public
 │   ├── css
 │   │   └── style.css    # CSS for frontend styling
 │   ├── js
 │   │   └── script.js    # Frontend JavaScript for DNS lookup
+│   ├── img              # Public images
 ├── config.env           # Environment variables
 └── package.json         # Project dependencies
 ```

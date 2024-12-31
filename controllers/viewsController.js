@@ -17,7 +17,7 @@ const dnsTypesGlobal = [
 exports.getOverview = async (req, res) => {
   try {
     res.status(200).render('overview', {
-      title: 'Log into your account',
+      title: 'Lookup form',
     });
   } catch (error) {
     return res.status(500).json({
@@ -69,6 +69,62 @@ exports.getDNSResults = async (req, res) => {
   } catch (error) {
     res.status(500).render('error', {
       title: 'Error',
+      message: error.message,
+    });
+  }
+};
+
+// About page
+exports.getAbout = async (req, res) => {
+  try {
+    res.status(200).render('about', {
+      title: 'About Us',
+    });
+  } catch (error) {
+    return res.status(500).json({
+      status: 'fail',
+      message: error.message,
+    });
+  }
+};
+
+// Contact us page
+exports.getContactUs = async (req, res) => {
+  try {
+    res.status(200).render('contact-us', {
+      title: 'Contact Us',
+    });
+  } catch (error) {
+    return res.status(500).json({
+      status: 'fail',
+      message: error.message,
+    });
+  }
+};
+
+// Privacy policy page
+exports.getPrivacyPolicy = async (req, res) => {
+  try {
+    res.status(200).render('privacy', {
+      title: 'Privacy Policy',
+    });
+  } catch (error) {
+    return res.status(500).json({
+      status: 'fail',
+      message: error.message,
+    });
+  }
+};
+
+// Terms of service page
+exports.getTermsOfService = async (req, res) => {
+  try {
+    res.status(200).render('terms', {
+      title: 'Terms of service',
+    });
+  } catch (error) {
+    return res.status(500).json({
+      status: 'fail',
       message: error.message,
     });
   }

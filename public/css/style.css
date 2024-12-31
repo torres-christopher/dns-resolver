@@ -1,89 +1,195 @@
 /* General Reset */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  /* Body Styling */
-  body {
-    font-family: Arial, sans-serif;
-    background-color: #f9f9f9;
-    color: #333;
-    line-height: 1.6;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  /* Header Styling */
-  h1 {
-    margin-bottom: 20px;
-    font-size: 2.5rem;
-    color: #0056b3;
-    text-align: center;
-  }
-  
-  /* Form Styling */
-  form {
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 400px;
-  }
-  
-  form label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: bold;
-  }
-  
-  form input,
-  form select {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  form button {
-    display: block;
-    width: 100%;
-    background: #0056b3;
-    color: #fff;
-    border: none;
-    padding: 10px 15px;
-    font-size: 1rem;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background 0.3s;
-  }
-  
-  form button:hover {
-    background: #003d80;
-  }
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-  .type {
-    margin-top: 8px;
-  }  
+/* Body Styling */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ensures the body stretches to fill the viewport */
+  margin: 0;
+}
 
-  /* Result Styling */
-  #result {
-    margin-top: 20px;
-    padding: 20px;
-    background: #fff;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    width: 100%;
-    max-width: 400px;
-    word-wrap: break-word;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    display: none;
-  }
+/* Header Styling */
+.header {
+  background-color: #0056b3;
+  padding: 10px 20px;
+  margin-bottom: 50px;
+  width: 100%;
+  color: white;
+}
+.navbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.nav-list {
+  list-style: none;
+  display: flex;
+  gap: 15px;
+  margin: 0;
+  padding: 0;
+}
+.nav-item .nav-link {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+.nav-item .nav-link:hover {
+  color: #ffdd57;
+}
+
+/* Footer Styling */
+.footer {
+  background-color: #333;
+  color: white;
+  padding: 15px 20px;
+  width: 100%;
+  text-align: center;
+  margin-top: 30px; /* Adds space between the content and the footer */
+  position: relative; /* Removes fixed positioning */
+}
+.footer-content {
+  font-size: 0.9rem;
+}
+.footer-nav .nav-list {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 0;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+.footer-nav .nav-link {
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.footer-nav .nav-link:hover {
+  color: #ffdd57;
+}
+
+/* Main Styling */
+main.main {
+  background-color: #f7f7f7;
+  padding: 20px;
+  width: 100%;
+  max-width: 800px;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1; /* Ensures the main content area expands to fill available space */
+}
+
+/* Section Styling */
+section {
+  width: 100%;
+  max-width: 800px; /* Keeps content consistent with the main content width */
+  margin-bottom: 20px; /* Adds spacing between sections */
+  padding: 20px; /* Optional: Adds inner spacing */
+  background-color: #fff; /* Ensures sections have a white background */
+  border-radius: 8px; /* Adds rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for better visual separation */
+}
+
+/* Section Heading Styling */
+section h2 {
+  font-size: 1.8rem; /* Slightly smaller than main headings */
+  margin-bottom: 10px; /* Adds spacing below the heading */
+  color: #0056b3; /* Matches the site's theme */
+  text-align: left; /* Aligns heading text to the left */
+}
+
+/* Section Paragraph Styling */
+section p {
+  margin-bottom: 15px; /* Adds spacing between paragraphs */
+  line-height: 1.6; /* Improves readability */
+  color: #333; /* Ensures text color is readable */
+}
+
+/* Section List Styling */
+section ul {
+  list-style-type: disc; /* Adds bullet points */
+  padding-left: 20px; /* Indents the bullet list */
+  margin-top: 10px; /* Adds spacing above the list */
+}
+
+section ul li {
+  margin-bottom: 10px; /* Adds spacing between list items */
+  line-height: 1.5; /* Improves readability for list items */
+}
+
+
+/* Heading Styling */
+h1 {
+  margin-bottom: 20px;
+  font-size: 2.5rem;
+  color: #0056b3;
+  text-align: center;
+}
+
+/* Form Styling */
+form#dnsForm {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+form#dnsForm label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+form#dnsForm input, form select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+form#dnsForm button {
+  display: block;
+  width: 100%;
+  background: #0056b3;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  font-size: 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+form#dnsForm button:hover {
+  background: #003d80;
+}
+.type {
+  margin-top: 8px;
+}
+
+/* Result Styling */
+#result {
+  margin-top: 20px;
+  padding: 20px;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 400px;
+  word-wrap: break-word;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: none;
+}
 
 /* Table Styling */
 .table {
@@ -91,32 +197,100 @@
   border-collapse: collapse;
   margin-top: 20px;
 }
-
 .table th, .table td {
   border: 1px solid #ddd;
   padding: 8px;
 }
-
 .table th {
   background-color: #f2f2f2;
   text-align: left;
   font-weight: bold;
 }
-
 .table tr:nth-child(even) {
   background-color: #f9f9f9;
 }
-
 .table tr:hover {
   background-color: #f1f1f1;
 }
-
 .table td {
   word-wrap: break-word;
   white-space: pre-wrap;
 }
-
-.table td ul {
+.table tbody tr td ul {
   list-style: none;
 }
-  
+ul hr {
+  height: 0px;
+  border: none;
+  border-top: 1px solid #ccc;
+ ;
+}
+
+/* Contact Form Styling */
+form#contactForm {
+  background: #fff;
+  margin: auto;
+  padding: 20px;
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+form#contactForm label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+form#contactForm input,
+form#contactForm textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  background: #f9f9f9;
+}
+
+form#contactForm textarea {
+  resize: none;
+}
+
+form#contactForm button {
+  width: 100%;
+  background: #0056b3;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  font-size: 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+form#contactForm button:hover {
+  background: #003d80;
+}
+
+/* Success Message Styling */
+.alert-success {
+  margin-top: 20px;
+  padding: 15px;
+  border: 1px solid #4caf50;
+  background-color: #dff0d8;
+  color: #3c763d;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+/* Error Message Styling */
+.alert-error {
+  margin-top: 20px;
+  padding: 15px;
+  border: 1px solid #f44336;
+  background-color: #f2dede;
+  color: #a94442;
+  border-radius: 4px;
+  font-size: 1rem;
+}
