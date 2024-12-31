@@ -4,9 +4,10 @@
   "description": "Check email routing",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon server.js",
-    "start:prod": "NODE_ENV=production nodemon server.js",
-    "debug": "ndb server.js"
+    "build": "babel src --out-dir dist && cpx \"src/views/**/*\" dist/views && cpx \"src/public/**/*\" dist/public",
+    "start": "nodemon dist/server.js",
+    "start:prod": "NODE_ENV=production nodemon dist/server.js",
+    "dev": "npm run build && npm start"
   },
   "keywords": [],
   "author": "Christopher Torres",
@@ -22,6 +23,10 @@
     "pug": "^3.0.3"
   },
   "devDependencies": {
+    "@babel/cli": "^7.26.4",
+    "@babel/core": "^7.26.0",
+    "@babel/preset-env": "^7.26.0",
+    "cpx": "^1.5.0",
     "nodemon": "^3.1.7",
     "parcel": "^2.13.2",
     "prettier": "^3.4.1"
