@@ -8,7 +8,10 @@ This is a **DNS Lookup Tool** built using **Node.js** and **Express.js**. It all
 ## Features
 
 - **Frontend Interface**:
-  - A user-friendly web page where users can enter a domain name, select a DNS record type (e.g., A, AAAA, CNAME, MX, PTR, TXT), and view the results in a table format.
+  - A user-friendly web page where users can:
+    - Perform a quick search for a specific type of DNS record (e.g., A, MX, TXT, etc.).
+    - Perform a complete search for all DNS records within a specific domain.
+  - Results are displayed in an organized table format for easy reading.
   
 - **RESTful API**:
   - Supports DNS lookups for specific types or all DNS records.
@@ -88,7 +91,9 @@ This is a **DNS Lookup Tool** built using **Node.js** and **Express.js**. It all
 3. **Create a `.env` file**:
    ```plaintext
    NODE_ENV=development
-   PORT=3000
+   PORT={###}
+   EMAIL_LOGIN=your_email@gmail.com
+   EMAIL_PASSWORD=your_email_password
    ```
 
 4. **Run the application**:
@@ -97,8 +102,8 @@ This is a **DNS Lookup Tool** built using **Node.js** and **Express.js**. It all
    ```
 
 5. Open your browser and visit:
-   - **Frontend**: `http://localhost:3000`
-   - **API Example**: `http://localhost:3000/api/v1/dns/lookupType`
+   - **Frontend**: `http://localhost:PORT`
+   - **API Example**: `http://localhost:PORT/api/v1/dns/lookupType`
 
 ---
 
@@ -106,10 +111,10 @@ This is a **DNS Lookup Tool** built using **Node.js** and **Express.js**. It all
 
 ### Frontend
 
-1. Visit `http://localhost:3000`.
+1. Visit `http://localhost:PORT`.
 2. Enter a **domain name** (e.g., `example.com`).
-3. Select a **DNS record type** from the dropdown menu (e.g., `A`, `MX`, etc.).
-4. Click `Lookup` to view the results in a table.
+3. Select a **DNS record type** from the dropdown menu (e.g., `A`, `MX`, etc.) and hit Quick search for a single result.
+4. Click `Lookup` to view all the results in a table.
 
 ### API Endpoints
 
