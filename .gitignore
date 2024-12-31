@@ -1,6 +1,50 @@
+# Node modules
 node_modules/
+
+# Environment files
 *.env
-.cache/
-.prettierrc
+
+# Build output
 dist/
+
+# Parcel cache
+.cache/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor and IDE settings
+.vscode/
+.idea/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Prettier and Babel configuration
+.prettierrc
 .babelrc
+
+# Ignore npm and yarn lock files (if you're not using them in the project)
+# Uncomment the following lines if lock files aren't used in your project
+# package-lock.json
+# yarn.lock
+
+# Temp files
+*.tmp
+*.temp
+*.swp
+*.bak
+*.backup
+
+# Coverage reports (if using testing tools like Jest)
+coverage/
+
+# Miscellaneous
+*.log
+*.pid
+*.seed
+*.pid.lock
